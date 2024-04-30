@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  database:
+    image: mariadb:latest
+    restart: always
+    ports:
+      - '3306:3306'
+    env_file: ./env/db.env
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - 'mysqldata:/var/lib/mysql'
+  
+  php:
+    build:
+      context: docker
+      dockerfile: Dockerfile
+    volumes:
+      - './app:/var/www/html'
+    develop:
+      watch:
+        - action: sync
+          path: ./app
+          target: /var/www/html
+  
+  nginx:
+    image: nginx:stable-alpine3.19-otel
+    ports:
+      - '8000:8000'
+    volumes:
+      - './app:/var/www/html'
+      - './cfg:/etc/nginx/conf.d'
+    depends_on:
+      - php
+
+volumes:
+  mysqldata:

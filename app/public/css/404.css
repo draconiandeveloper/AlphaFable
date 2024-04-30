@@ -1,0 +1,28 @@
+.style1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.style2 {
+    font-size: 18px;
+}
+
+body {
+    background-color: #FFF;
+    margin: 0px;
+} body, td, th {
+    color: #000;
+}
+
+img {
+    border: 0px;
+    height: 386px;
+    width: 520px;
+}
+
+a:link, a:active {
+    color: #F00;
+}
+
+a:visited, a:hover {
+    color: #900;
+}
