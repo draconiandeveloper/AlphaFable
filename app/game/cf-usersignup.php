@@ -36,10 +36,10 @@ if (count($userinfo) > 0) {
     die();
 }
 
-$passhash = $Security->encode(filter_input(INPUT_POST, 'strPassword'), $SiteKey);
+$passhash = $Security->encode(filter_input(INPUT_POST, 'strPassword'), $_SERVER['Settings']['SiteKey']);
 $Database->safeQuery('INSERT INTO `df_users` (`activation`, `pass`, `date_created`, `lastLogin`, `name`, `email`, `dob`) VALUES (?, ?, ?, ?, ?, ?, ?)', [
     0, $passhash,
-    $DateToday,
+    $_SERVER['Settings']['DateToday'],
     'Never',
     ...array_values($sign['User'])
 ]);
